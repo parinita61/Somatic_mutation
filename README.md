@@ -58,6 +58,6 @@ This repository contains code for processing and analyzing raw sequencing data f
 5. **Filtering, merging and annotation of the variants**:
    - Filter the `Mutect2` VCF file to retain only those entries with the `PASS` filter using grep.
    - Similarly,filter the `Varscan` VCF file to retain entries with the `SOMATIC` tag using grep.
-   - The filtered `Mutect2 and `Varscan` VCF files are then compressed using `bgzip` and indexed using `tabix` to make them compatible with downstream tools.
+   - The filtered `Mutect2` and `Varscan` VCF files are then compressed using `bgzip` and indexed using `tabix` to make them compatible with downstream tools.
    - The compressed and indexed VCF files from `Mutect`2 and `Varscan` are merged using bcftools merge to create a combined VCF file.
    - Aannotate the merged VCF file using `GATK's Funcotator` tool to add functional annotations based on the provided reference genome (hg38) 
