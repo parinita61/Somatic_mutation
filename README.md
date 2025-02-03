@@ -51,7 +51,13 @@ This repository contains code for processing and analyzing raw sequencing data f
 3. **Mutect2 PoN Creation**:
    - A Panel of Normals (PoN) is created using Mutect2 in tumor-only mode on the normal BAM file.
 
-4. **Variant Calling with Mutect2**:
+4. **Variant Calling with Mutect2 and Varscan**:
    - Somatic variants are called using `Mutect2` in a tumor-only mode, followed by the creation of the PoN.
-   - Further variant calling steps are defined with `Mutect2` in the second part (but the command seems to be incomplete).
+   - Further variant calling steps are defined with `Mutect2` and Varscan.
 
+5. **Filtering, merging and annotation of the variants**:
+   - Filter the Mutect2 VCF file to retain only those entries with the "PASS" filter using grep -E '^#|PASS'.
+   - Similarly,filter the Varscan VCF file to retain entries with the "SOMATIC" tag using grep -E '^#|SOMATIC'.
+   - The filtered Mutect2 and Varscan VCF files are then compressed using bgzip and indexed using tabix to make them compatible with downstream tools.
+   - The compressed and indexed VCF files from Mutect2 and Varscan are merged using bcftools merge to create a combined VCF file.
+   - Aannotate the merged VCF file using GATK's Funcotator tool to add functional annotations based on the provided reference genome (hg38) 
